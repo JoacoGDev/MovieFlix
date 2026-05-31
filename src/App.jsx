@@ -1,5 +1,7 @@
 import HomePage from "./pages/HomePage"
+import DetailPage from "./pages/DetailPage"
 import { StrictMode, useEffect } from "react"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import './App.css'
 import { useSelector } from "react-redux"
 
@@ -12,7 +14,13 @@ function App() {
   }, [favoriteMovies]);
 
   return (
-    <HomePage />
+
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />}/>
+        <Route path="/movie/:id" element={<DetailPage />}/>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
