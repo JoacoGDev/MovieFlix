@@ -21,21 +21,47 @@ function HomePage() {
     }, [inputValue])
 
     return (
+        <div className="min-h-screen bg-white px-6 py-10 font-sans">
 
-        <div>
-
-            <div>
-                <SearchBar onSearch={setInputValue}></SearchBar>
+            {/* Header */}
+            <div className="max-w-5xl mx-auto mb-10 flex flex-col items-center gap-4">
+                <h1 className="text-4xl font-bold text-gray-900 tracking-tight">
+                    <span className="text-purple-500">Movie</span>App
+                </h1>
+                <SearchBar onSearch={setInputValue} />
             </div>
 
-            <div>
-                {isLoading && <p>Loading...</p>}
-                {error && <p>{error.message}</p>}
+            {/* States */}
+            {isLoading && (
+                <p className="text-center text-gray-400 text-sm tracking-wide animate-pulse">
+                    I think we might have that
+                </p>
+            )}
+            {error && (
+                <p className="text-center text-red-400 text-sm">
+                    {error.message}
+                </p>
+            )}
 
-                {data && data.results.map((movie) => (
-                    <MovieCard key={movie.id} id={movie.id} title={movie.title} rating={movie.vote_average} img={movie.poster_path} />
-                ))}
-            </div>
+            {/* Grid */}
+            {data && (
+                <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                    {data.results.map((movie) => (
+                        <MovieCard
+                            key={movie.id}
+                            movie={movie}
+                        />
+                    ))}
+                </div>
+            )}
+
+             {data?.results?.length === 0 && (
+                <p className="text-center text-gray-400 text-sm tracking-wide animate-pulse">
+                    Sorry, we couldn't find that movie
+                </p>
+            )}
+
+
         </div>
     );
 }

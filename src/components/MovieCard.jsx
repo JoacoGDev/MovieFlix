@@ -1,8 +1,18 @@
-function MovieCard({ id, title, rating, img }) {
-    
+import { useDispatch, useSelector } from "react-redux";
+import { addFavorite, removeFavorite } from "../store/favoritesSlice";
+
+function MovieCard({ movie }) {
+
+    const { id, title, poster_path, vote_average } = movie;
+
+    const dispatch = useDispatch();
+    const favoriteMovies = useSelector((state) => state.favorites.movies);
+
+    const isFavorite = favoriteMovies.includes(movie);
+
     const ratingColor =
-        rating >= 7.5 ? "text-emerald-400" :
-            rating >= 5 ? "text-amber-400" :
+        vote_average >= 7.5 ? "text-emerald-400" :
+            vote_average >= 5 ? "text-amber-400" :
                 "text-rose-400";
 
     return (
@@ -13,7 +23,7 @@ function MovieCard({ id, title, rating, img }) {
         >
             {/* Poster */}
             <img
-                src={`https://image.tmdb.org/t/p/w500${img}`}
+                src={`https://image.tmdb.org/t/p/w500${poster_path}`}
                 alt={`${title}-picture`}
                 className="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-105"
             />
@@ -21,10 +31,19 @@ function MovieCard({ id, title, rating, img }) {
             {/* Gradient overlay — always visible at bottom */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
 
+            {/* Favorites button */}
+            <button onClick={() => isFavorite ? dispatch(removeFavorite(movie)) : dispatch(addFavorite(movie))} className={`absolute top-2 left-2 bg-black/70 backdrop-blur-sm rounded-full p-1.5
+                   hover:scale-110 transition-all duration-200
+                   ${isFavorite ? "text-rose-500" : "text-white/20 hover:text-rose-400/70"}`}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+            </button>
+
             {/* Rating badge */}
             <div className={`absolute top-2 right-2 flex items-center gap-1 bg-black/70 backdrop-blur-sm
                        rounded-full px-2 py-0.5 text-xs font-bold ${ratingColor}`}>
-                ★ {rating}
+                ★ {vote_average}
             </div>
 
             {/* Title */}
