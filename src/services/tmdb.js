@@ -37,4 +37,17 @@ async function searchMovies(query) {
     return result;
 }
 
-export  {searchPopularMovies, searchMovies};
+async function getMovieById(id) {
+    const url = `${API_BASE_URL}/movie/${id}`;
+
+    const response = await fetch(url, options);;
+    if(!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    return result;
+
+} 
+
+export  {searchPopularMovies, searchMovies, getMovieById};
