@@ -1,8 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
+  const saved = JSON.parse(localStorage.getItem("favorites")) || [];
+  console.log("initialState movies:", saved);
+
 const favoritesSlice = createSlice({
     name: "favorites",
-    initialState: {movies: []},
+    initialState: {movies: saved},
     reducers: {
         addFavorite: (state, action) => {
             state.movies.push(action.payload);

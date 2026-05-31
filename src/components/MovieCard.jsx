@@ -8,7 +8,7 @@ function MovieCard({ movie }) {
     const dispatch = useDispatch();
     const favoriteMovies = useSelector((state) => state.favorites.movies);
 
-    const isFavorite = favoriteMovies.includes(movie);
+    const isFavorite = favoriteMovies.some((movie) => movie.id === id);
 
     const ratingColor =
         vote_average >= 7.5 ? "text-emerald-400" :

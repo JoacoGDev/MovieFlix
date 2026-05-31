@@ -1,11 +1,17 @@
 import HomePage from "./pages/HomePage"
-import { StrictMode } from "react"
+import { StrictMode, useEffect } from "react"
 import './App.css'
+import { useSelector } from "react-redux"
 
 function App() {
 
-  return (
+  const favoriteMovies = useSelector((state) => state.favorites.movies);
 
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favoriteMovies));
+  }, [favoriteMovies]);
+
+  return (
     <HomePage />
   )
 }
