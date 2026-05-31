@@ -55,7 +55,7 @@ function HomePage() {
                 </div>
             )}
 
-             {data?.results?.length === 0 && (
+            {data?.results?.length === 0 && (
                 <p className="text-center text-gray-400 text-sm tracking-wide animate-pulse">
                     Sorry, we couldn't find that movie
                 </p>
