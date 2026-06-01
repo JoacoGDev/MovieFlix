@@ -2,34 +2,20 @@ import useFetch from "../hooks/useFetch"
 import { searchMovies, searchPopularMovies } from "../services/tmdb";
 import MovieCard from "../components/MovieCard"
 import SearchBar from "../components/SearchBar";
+import Navbar from "../components/Navbar";
 import { useCallback, useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 function HomePage() {
-    const [inputValue, setInputValue] = useState("");
-    const [query, setQuery] = useState("");
+
+    const [searchParams] = useSearchParams();
+    const query = searchParams.get("query") || "";
 
     const fetchFn = useCallback(query ? () => searchMovies(query) : searchPopularMovies, [query]);
     const { data, isLoading, error } = useFetch(fetchFn);
 
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setQuery(inputValue);
-        }, 400);
-
-        return () => clearTimeout(timer);
-    }, [inputValue])
-
     return (
         <div className="min-h-screen bg-white px-6 py-10 font-sans">
-
-            {/* Header */}
-            <div className="max-w-5xl mx-auto mb-10 flex flex-col items-center gap-4">
-                <h1 className="text-4xl font-bold text-gray-900 tracking-tight">
-                    <span className="text-purple-500">Movie</span>App
-                </h1>
-                <SearchBar onSearch={setInputValue} />
-            </div>
 
             {/* States */}
             {isLoading && (
