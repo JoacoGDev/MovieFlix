@@ -26,7 +26,7 @@ function MovieCard({ movie }) {
             >
                 {/* Poster */}
                 <img
-                    src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                    src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : `/src/assets/no-poster.svg`}
                     alt={`${title}-picture`}
                     className="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -35,7 +35,7 @@ function MovieCard({ movie }) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
 
                 {/* Favorites button */}
-                <button onClick={(e) => {e.preventDefault(); e.stopPropagation(); isFavorite ? dispatch(removeFavorite(movie)) : dispatch(addFavorite(movie))}} className={`absolute top-2 left-2 bg-black/70 backdrop-blur-sm rounded-full p-1.5
+                <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); isFavorite ? dispatch(removeFavorite(movie)) : dispatch(addFavorite(movie)) }} className={`absolute top-2 left-2 bg-black/70 backdrop-blur-sm rounded-full p-1.5
                    hover:scale-110 transition-all duration-200
                    ${isFavorite ? "text-rose-500" : "text-white/20 hover:text-rose-400/70"}`}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
