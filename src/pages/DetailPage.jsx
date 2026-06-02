@@ -22,50 +22,53 @@ function DetailPage() {
         n ? `$${(n / 1_000_000).toFixed(1)}M` : null;
 
     return (
-        <div className="min-h-screen bg-zinc-950 text-zinc-100">
+        <div className="h-screen overflow-hidden bg-zinc-950 text-zinc-100 relative">
 
-            {/* Backdrop */}
+            {/* Backdrop — ocupa toda la pantalla */}
             {data?.backdrop_path && (
-                <div className="relative h-72 w-full overflow-hidden">
+                <div className="absolute inset-0">
                     <img
                         src={`https://image.tmdb.org/t/p/w1280${data.backdrop_path}`}
                         alt=""
-                        className="w-full h-full object-cover opacity-40"
+                        className="w-full h-full object-cover object-top opacity-40"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-zinc-950" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/20 via-transparent to-zinc-950" />
                 </div>
             )}
 
             {/* Loading */}
             {isLoading && (
-                <p className="text-center text-zinc-500 text-sm tracking-widest uppercase animate-pulse mt-32">
-                    Finding that for you...
-                </p>
+                <div className="absolute inset-0 flex items-center justify-center">
+                    <p className="text-zinc-500 text-sm tracking-widest uppercase animate-pulse">
+                        Finding that for you...
+                    </p>
+                </div>
             )}
 
             {/* Error */}
             {error && (
-                <p className="text-center text-red-400 text-sm mt-32">{error.message}</p>
+                <div className="absolute inset-0 flex items-center justify-center">
+                    <p className="text-red-400 text-sm">{error.message}</p>
+                </div>
             )}
 
-            {/* Content */}
+            {/* Contenido pegado al fondo */}
             {data && (
-                <div className="max-w-4xl mx-auto px-4 pb-16 -mt-24 relative z-10">
-                    <div className="flex flex-col md:flex-row gap-10 items-start">
+                <div className="absolute bottom-0 left-0 right-0 z-10 px-8 pb-12">
+                    <div className="max-w-4xl mx-auto flex flex-row gap-8 items-end">
 
                         {/* Poster */}
                         <div className="shrink-0">
                             <img
                                 src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
                                 alt={data.title}
-                                className="w-48 rounded-lg shadow-2xl shadow-black/60 ring-1 ring-white/10"
+                                className="w-36 rounded-lg shadow-2xl shadow-black/60 ring-1 ring-white/10"
                             />
                         </div>
 
                         {/* Info */}
-                        <div className="flex flex-col gap-4 pt-2">
+                        <div className="flex flex-col gap-3 pb-1">
 
-                            {/* Title + tagline */}
                             <div>
                                 <h1 className="text-3xl font-bold tracking-tight leading-tight text-white">
                                     {data.title}
@@ -75,7 +78,6 @@ function DetailPage() {
                                 )}
                             </div>
 
-                            {/* Meta row */}
                             <div className="flex flex-wrap items-center gap-2 text-sm text-zinc-400">
                                 {year && <span>{year}</span>}
                                 {data.runtime > 0 && (
@@ -94,7 +96,6 @@ function DetailPage() {
                                 )}
                             </div>
 
-                            {/* Genres */}
                             {data.genres?.length > 0 && (
                                 <div className="flex flex-wrap gap-2">
                                     {data.genres.map((g) => (
@@ -108,7 +109,6 @@ function DetailPage() {
                                 </div>
                             )}
 
-                            {/* Rating */}
                             {rating && (
                                 <div className="flex items-center gap-2">
                                     <span className="text-amber-400 text-lg">★</span>
@@ -122,16 +122,12 @@ function DetailPage() {
                                 </div>
                             )}
 
-                            <div className="border-t border-zinc-800 w-16" />
-
-                            {/* Overview */}
                             {data.overview && (
-                                <p className="text-zinc-300 text-sm leading-relaxed max-w-xl">
+                                <p className="text-zinc-300 text-sm leading-relaxed max-w-xl line-clamp-3">
                                     {data.overview}
                                 </p>
                             )}
 
-                            {/* Budget / Revenue */}
                             {(data.budget > 0 || data.revenue > 0) && (
                                 <div className="flex gap-6 text-sm">
                                     {data.budget > 0 && (
@@ -149,9 +145,8 @@ function DetailPage() {
                                 </div>
                             )}
 
-                            {/* Production companies */}
                             {data.production_companies?.length > 0 && (
-                                <div className="flex flex-wrap gap-3 pt-2">
+                                <div className="flex flex-wrap gap-3">
                                     {data.production_companies.map((c) =>
                                         c.logo_path ? (
                                             <img
@@ -159,7 +154,7 @@ function DetailPage() {
                                                 src={`https://image.tmdb.org/t/p/w92${c.logo_path}`}
                                                 alt={c.name}
                                                 title={c.name}
-                                                className="h-6 object-contain opacity-50 hover:opacity-80 transition-opacity invert"
+                                                className="h-5 object-contain opacity-50 hover:opacity-80 transition-opacity invert"
                                             />
                                         ) : (
                                             <span key={c.id} className="text-xs text-zinc-600">{c.name}</span>
@@ -167,7 +162,6 @@ function DetailPage() {
                                     )}
                                 </div>
                             )}
-
                         </div>
                     </div>
                 </div>

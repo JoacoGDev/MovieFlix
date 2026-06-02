@@ -17,13 +17,15 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navbar />
-      <div className="pt-16">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/movie/:id" element={<DetailPage />} />
-          <Route path="/favorites" element={<FavoritesPage />} />
-        </Routes>
+      <div>
+        <Navbar />
+        <div className="">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/movie/:id" element={<DetailPage />} />
+            <Route path="/favorites" element={<FavoritesPage />} />
+          </Routes>
+        </div>
       </div>
     </BrowserRouter>
   );

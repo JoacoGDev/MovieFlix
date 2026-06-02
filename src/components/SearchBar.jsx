@@ -11,7 +11,6 @@ function SearchBar({ onSearch }) {
 
   const handleBlur = () => {
     setIsOpen(false);
-    onSearch("");
   };
 
   return (
