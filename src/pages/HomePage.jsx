@@ -1,5 +1,5 @@
 import useFetch from "../hooks/useFetch"
-import { searchMovies, searchPopularMovies } from "../services/tmdb";
+import { searchMovies, getPopularMovies } from "../services/tmdb";
 import MovieCard from "../components/MovieCard"
 import { useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -9,7 +9,7 @@ function HomePage() {
     const query = searchParams.get("query") || "";
 
     const fetchFn = useCallback(
-        query ? () => searchMovies(query) : searchPopularMovies,
+        query ? () => searchMovies(query) : getPopularMovies,
         [query]
     );
 
