@@ -11,8 +11,22 @@ const options = {
     }
 }
 
-async function searchPopularMovies() {
+async function getPopularMovies() {
     const url = `${API_BASE_URL}/movie/popular`
+
+
+    const response = await fetch(url, options);
+    if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    return result;
+
+}
+
+async function getPopularShows() {
+    const url = `${API_BASE_URL}/tv/popular`
 
 
     const response = await fetch(url, options);
@@ -29,7 +43,7 @@ async function searchMovies(query) {
     const url = `${API_BASE_URL}/search/movie?query=${query}`
 
     const response = await fetch(url, options);
-    if(!response.ok) {
+    if (!response.ok) {
         throw new Error(`Response status: ${response.status}`);
     }
 
@@ -40,14 +54,38 @@ async function searchMovies(query) {
 async function getMovieById(id) {
     const url = `${API_BASE_URL}/movie/${id}`;
 
-    const response = await fetch(url, options);;
-    if(!response.ok) {
+    const response = await fetch(url, options);
+    if (!response.ok) {
         throw new Error(`Response status: ${response.status}`);
     }
 
     const result = await response.json();
     return result;
 
-} 
+}
 
-export  {searchPopularMovies, searchMovies, getMovieById};
+async function getTrending() {
+    const url = `${API_BASE_URL}/trending/all/week`;
+
+    const response = await fetch(url, options);
+    if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    return result;
+}
+
+async function getTopRatedMovies() {
+    const url = `${API_BASE_URL}/movie/top_rated`;
+
+    const response = await fetch(url, options);
+    if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    return result;
+}
+
+export { getPopularMovies, searchMovies, getMovieById, getTopRatedMovies, getTrending, getPopularShows };
