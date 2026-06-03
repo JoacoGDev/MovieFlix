@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
 
 function useFetch(fetchFunction) {
+
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [data, setData] = useState(null);
 
     useEffect(() => {
+
+        if (!fetchFunction) {
+            setIsLoading(false);
+            return;
+        }
+
         const loadData = async () => {
             try {
                 setIsLoading(true);
