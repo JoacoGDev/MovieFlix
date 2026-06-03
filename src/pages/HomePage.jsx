@@ -9,7 +9,7 @@ function HomePage() {
     { title: "Top Rated Movies", fetch: getTopRatedMovies }];
 
     return (
-        <div className="min-h-screen bg-zinc-950 px-6 py-8">
+        <div className="min-h-screen bg-zinc-950 px-6 pt-25 pb-8">
 
             {carouselData.map((carousel) => (
                 <Carousel key={carousel.title} title={carousel.title} fetchFunction={carousel.fetch} />
