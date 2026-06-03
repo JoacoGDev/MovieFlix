@@ -52,17 +52,17 @@ function DetailPage() {
                 </div>
             )}
 
-            {/* Contenido pegado al fondo */}
+            {/* Contenido centrado verticalmente */}
             {data && (
-                <div className="absolute bottom-0 left-0 right-0 z-10 px-8 pb-12">
-                    <div className="max-w-4xl mx-auto flex flex-row gap-8 items-end">
+                <div className="absolute inset-0 z-10 px-8 flex items-center">
+                    <div className="max-w-2xl mx-auto flex flex-row gap-8 items-end">
 
                         {/* Poster */}
                         <div className="shrink-0">
                             <img
                                 src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
                                 alt={data.title}
-                                className="w-36 rounded-lg shadow-2xl shadow-black/60 ring-1 ring-white/10"
+                                className="w-40 h-60 object-cover rounded-lg shadow-2xl shadow-black/60 ring-1 ring-white/10"
                             />
                         </div>
 
@@ -74,22 +74,22 @@ function DetailPage() {
                                     {data.title}
                                 </h1>
                                 {data.tagline && (
-                                    <p className="text-zinc-400 italic text-sm mt-1">{data.tagline}</p>
+                                    <p className="text-zinc-300 italic text-sm mt-1">{data.tagline}</p>
                                 )}
                             </div>
 
-                            <div className="flex flex-wrap items-center gap-2 text-sm text-zinc-400">
+                            <div className="flex flex-wrap items-center gap-2 text-sm text-zinc-300">
                                 {year && <span>{year}</span>}
                                 {data.runtime > 0 && (
                                     <>
-                                        <span className="text-zinc-600">·</span>
+                                        <span className="text-zinc-500">·</span>
                                         <span>{formatRuntime(data.runtime)}</span>
                                     </>
                                 )}
                                 {data.status && (
                                     <>
-                                        <span className="text-zinc-600">·</span>
-                                        <span className="text-xs uppercase tracking-widest text-zinc-500">
+                                        <span className="text-zinc-500">·</span>
+                                        <span className="text-xs uppercase tracking-widest text-zinc-400">
                                             {data.status}
                                         </span>
                                     </>
@@ -101,7 +101,7 @@ function DetailPage() {
                                     {data.genres.map((g) => (
                                         <span
                                             key={g.id}
-                                            className="text-xs px-3 py-1 rounded-full border border-zinc-700 text-zinc-300 tracking-wide"
+                                            className="text-xs px-3 py-1 rounded-full border border-zinc-600 text-zinc-200 tracking-wide"
                                         >
                                             {g.name}
                                         </span>
@@ -113,9 +113,9 @@ function DetailPage() {
                                 <div className="flex items-center gap-2">
                                     <span className="text-amber-400 text-lg">★</span>
                                     <span className="text-white font-semibold text-lg">{rating}</span>
-                                    <span className="text-zinc-600 text-sm">/ 10</span>
+                                    <span className="text-zinc-400 text-sm">/ 10</span>
                                     {data.vote_count && (
-                                        <span className="text-zinc-600 text-xs">
+                                        <span className="text-zinc-400 text-xs">
                                             ({data.vote_count.toLocaleString()} votes)
                                         </span>
                                     )}
@@ -123,22 +123,22 @@ function DetailPage() {
                             )}
 
                             {data.overview && (
-                                <p className="text-zinc-300 text-sm leading-relaxed max-w-xl line-clamp-3">
+                                <p className="text-zinc-200 text-sm leading-relaxed max-w-xs line-clamp-4 border-t border-zinc-700 pt-3">
                                     {data.overview}
                                 </p>
                             )}
 
                             {(data.budget > 0 || data.revenue > 0) && (
-                                <div className="flex gap-6 text-sm">
+                                <div className="flex gap-6 text-sm bg-zinc-900/40 rounded-lg px-3 py-2 w-fit">
                                     {data.budget > 0 && (
                                         <div>
-                                            <p className="text-zinc-500 text-xs uppercase tracking-widest mb-1">Budget</p>
+                                            <p className="text-zinc-400 text-xs uppercase tracking-widest mb-1">Budget</p>
                                             <p className="text-zinc-200 font-medium">{formatMoney(data.budget)}</p>
                                         </div>
                                     )}
                                     {data.revenue > 0 && (
                                         <div>
-                                            <p className="text-zinc-500 text-xs uppercase tracking-widest mb-1">Revenue</p>
+                                            <p className="text-zinc-400 text-xs uppercase tracking-widest mb-1">Revenue</p>
                                             <p className="text-zinc-200 font-medium">{formatMoney(data.revenue)}</p>
                                         </div>
                                     )}
@@ -154,10 +154,10 @@ function DetailPage() {
                                                 src={`https://image.tmdb.org/t/p/w92${c.logo_path}`}
                                                 alt={c.name}
                                                 title={c.name}
-                                                className="h-5 object-contain opacity-50 hover:opacity-80 transition-opacity invert"
+                                                className="h-5 object-contain opacity-60 hover:opacity-90 transition-opacity invert"
                                             />
                                         ) : (
-                                            <span key={c.id} className="text-xs text-zinc-600">{c.name}</span>
+                                            <span key={c.id} className="text-xs text-zinc-500">{c.name}</span>
                                         )
                                     )}
                                 </div>
