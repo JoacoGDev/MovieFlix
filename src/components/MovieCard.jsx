@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addFavorite, removeFavorite } from "../store/favoritesSlice";
 import { Link } from "react-router-dom";
 
-function MovieCard({ movie }) {
+function MovieCard({ movie, className }) {
     const { id, title, poster_path, vote_average } = movie;
     const dispatch = useDispatch();
     const favoriteMovies = useSelector((state) => state.favorites.movies);
@@ -17,8 +17,8 @@ function MovieCard({ movie }) {
 
     return (
         <Link to={`/movie/${id}`}>
-            <div className="group relative w-full rounded-xl overflow-hidden shadow-lg cursor-pointer
-                      transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/60">
+            <div className={`group relative ${className} rounded-xl overflow-hidden shadow-lg cursor-pointer
+                      transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/60`}>
 
                 {/* Poster */}
                 <img
@@ -65,7 +65,7 @@ function MovieCard({ movie }) {
                 </div>
 
             </div>
-        </Link>
+        </Link >
     );
 }
 
