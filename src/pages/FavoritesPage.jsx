@@ -5,13 +5,13 @@ function FavoritesPage() {
     const favoriteMovies = useSelector((state) => state.favorites.movies);
 
     return (
-        <div className="min-h-screen bg-zinc-950 px-6 py-8 font-sans">
+        <div className="min-h-screen bg-zinc-950 px-6 pt-20 pb-8">
 
             {/* Section heading */}
             <div className="max-w-6xl mx-auto mb-6">
-                <h2 className="text-white text-xl font-semibold tracking-tight">
+                <h1 className="text-white text-2xl font-bold tracking-tight">
                     My Favorites
-                </h2>
+                </h1>
                 {favoriteMovies.length > 0 && (
                     <p className="text-zinc-500 text-sm mt-1">
                         {favoriteMovies.length} {favoriteMovies.length === 1 ? "title" : "titles"}
