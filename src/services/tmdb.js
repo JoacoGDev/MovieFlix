@@ -39,8 +39,8 @@ async function getPopularShows() {
 
 }
 
-async function searchMovies(query) {
-    const url = `${API_BASE_URL}/search/movie?query=${query}`
+async function searchMulti(query) {
+    const url = `${API_BASE_URL}/search/multi?query=${query}`
 
     const response = await fetch(url, options);
     if (!response.ok) {
@@ -88,4 +88,4 @@ async function getTopRatedMovies() {
     return result;
 }
 
-export { getPopularMovies, searchMovies, getMovieById, getTopRatedMovies, getTrending, getPopularShows };
+export { getPopularMovies, searchMulti, getMovieById, getTopRatedMovies, getTrending, getPopularShows };
