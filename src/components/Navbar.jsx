@@ -11,7 +11,6 @@ function Navbar() {
     const [inputValue, setInputValue] = useState("");
 
     useEffect(() => {
-        console.log("effect fired, inputValue:", inputValue)
         const timer = setTimeout(() => {
             setSearchParams({ query: inputValue });
         }, 400);
