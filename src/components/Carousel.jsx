@@ -39,7 +39,7 @@ function Carousel({ title, fetchFunction }) {
                     >
                         {data.results.map((movie) => (
                             <div key={movie.id} className="snap-start shrink-0">
-                                <MovieCard movie={movie} />
+                                <MovieCard movie={movie} className={"snap - start shrink-0 w-36"} />
                             </div>
                         ))}
                     </div>
