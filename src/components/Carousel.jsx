@@ -2,9 +2,11 @@ import { useCallback, useRef } from "react";
 import useFetch from "../hooks/useFetch";
 import MovieCard from "./MovieCard";
 
-function Carousel({ title, fetchFunction }) {
-    const fetchFn = useCallback(() => fetchFunction(), [fetchFunction]);
+function Carousel({ title, fetchFunction, initialMovies }) {
+    const fetchFn = useCallback(fetchFunction ? () => fetchFunction() : null, [fetchFunction]);
     const { data, error, isLoading } = useFetch(fetchFn);
+
+    const movies = fetchFunction ? data?.results : initialMovies;
 
     const carouselRef = useRef(null);
 
@@ -35,7 +37,7 @@ function Carousel({ title, fetchFunction }) {
                 </p>
             )}
 
-            {data && data.results.length > 0 && (
+            {movies && movies.length > 0 && (
                 <div className="relative group">
 
                     {/* Botón izquierda */}
@@ -57,7 +59,7 @@ function Carousel({ title, fetchFunction }) {
                         className="flex overflow-x-auto gap-4 pb-4 px-1
                  scrollbar-none scroll-smooth snap-x snap-mandatory"
                     >
-                        {data.results.map((movie) => (
+                        {movies.map((movie) => (
                             <div key={movie.id} className="snap-start shrink-0">
                                 <MovieCard movie={movie} className="w-36" />
                             </div>
