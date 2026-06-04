@@ -1,10 +1,16 @@
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import useFetch from "../hooks/useFetch";
 import MovieCard from "./MovieCard";
 
 function Carousel({ title, fetchFunction }) {
     const fetchFn = useCallback(() => fetchFunction(), [fetchFunction]);
     const { data, error, isLoading } = useFetch(fetchFn);
+
+    const carouselRef = useRef(null);
+
+    const scroll = (dir) => {
+        carouselRef.current?.scrollBy({ left: dir * 300, behavior: "smooth" });
+    };
 
     return (
         <div className="mb-10">
@@ -29,24 +35,48 @@ function Carousel({ title, fetchFunction }) {
                 </p>
             )}
 
-            {/* Carousel */}
             {data && data.results.length > 0 && (
-                <div className="relative">
+                <div className="relative group">
+
+                    {/* Botón izquierda */}
+                    <button
+                        onClick={() => scroll(-1)}
+                        className="absolute left-0 inset-y-0 z-10 w-10
+                 bg-gradient-to-r from-zinc-950 to-transparent
+                 text-white opacity-0 group-hover:opacity-100
+                 transition-opacity flex items-center justify-center"
+                    >
+                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+
+                    {/* Carrusel */}
                     <div
+                        ref={carouselRef}
                         className="flex overflow-x-auto gap-4 pb-4 px-1
-              scrollbar-thin scrollbar-track-zinc-900 scrollbar-thumb-zinc-700
-              scroll-smooth snap-x snap-mandatory"
+                 scrollbar-none scroll-smooth snap-x snap-mandatory"
                     >
                         {data.results.map((movie) => (
                             <div key={movie.id} className="snap-start shrink-0">
-                                <MovieCard movie={movie} className={"snap - start shrink-0 w-36"} />
+                                <MovieCard movie={movie} className="w-36" />
                             </div>
                         ))}
                     </div>
 
-                    {/* Fade edges */}
-                    <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-zinc-950 to-transparent" />
-                    <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-zinc-950 to-transparent" />
+                    {/* Botón derecha */}
+                    <button
+                        onClick={() => scroll(1)}
+                        className="absolute right-0 inset-y-0 z-10 w-10
+                 bg-gradient-to-l from-zinc-950 to-transparent
+                 text-white opacity-0 group-hover:opacity-100
+                 transition-opacity flex items-center justify-center"
+                    >
+                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+
                 </div>
             )}
         </div>
