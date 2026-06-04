@@ -9,11 +9,19 @@ function SearchBar({ onSearch }) {
     setTimeout(() => inputRef.current?.focus(), 10);
   };
 
-  const handleBlur = () => {
-    setIsOpen(false);
+  const handleBlur = (e) => {
+    if (e.relatedTarget?.dataset.closeBtn) return; // el foco fue al botón X → no cerrar
+    setIsOpen(false); // el foco fue a otro lado → cerrar normalmente
   };
 
+  const handleClose = () => {
+    onSearch("");
+    inputRef.current.value = "";
+    setIsOpen(false);
+  }
+
   return (
+
     <div
       className={`flex items-center gap-2 rounded-full border transition-all duration-300 overflow-hidden
         ${isOpen
@@ -40,7 +48,27 @@ function SearchBar({ onSearch }) {
         className={`bg-transparent text-sm text-zinc-100 placeholder-zinc-500 outline-none transition-all duration-300
           ${isOpen ? "w-full py-2" : "w-0 p-0"}`}
       />
+
+      {isOpen && (
+        <button
+          data-close-btn="true"
+          onClick={handleClose}
+          className="text-zinc-400 hover:text-zinc-100 shrink-0 transition-colors"
+          aria-label="Cerrar búsqueda"
+        >
+          <svg
+            className="w-4 h-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      )}
+
     </div>
+
+
   );
 }
 
